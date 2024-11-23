@@ -8,18 +8,25 @@ import pkg from './package.json';
 export default {
     input: 'src/index.ts',
     output: [
-        { file: pkg.main, format: 'cjs', sourcemap: true }, // Add sourcemap: true
-        { file: pkg.module, format: 'esm', sourcemap: true } // Add sourcemap: true
+        { file: pkg.main, format: 'cjs', sourcemap: true },
+        { file: pkg.module, format: 'esm', sourcemap: true }
     ],
     plugins: [
         external(),
         resolve({
             extensions: ['.js', '.jsx', '.ts', '.tsx']
         }),
-        typescript(),
+        typescript({
+            tsconfig: './tsconfig.json',
+            declaration: true,
+            declarationDir: 'dist', // Ensure this is inside the dist directory
+            rootDir: 'src',
+            emitDeclarationOnly: false // Ensure this is false
+        }),
         babel({
             exclude: 'node_modules/**',
-            babelHelpers: 'bundled' 
+            babelHelpers: 'bundled',
+            extensions: ['.js', '.jsx', '.ts', '.tsx']
         }),
         del({ targets: ['dist/*'] }),
     ],
