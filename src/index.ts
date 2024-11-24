@@ -1,6 +1,6 @@
-    //export * from './components/HelloWorld';
-    import HelloWorld from './components/HelloWorld';
-export { HelloWorld };
+    
 
+// using the wildcard * DOES NOT WORK with Rollup:
+// export * from './components/HelloWorld'; -- doesn't work.
+export { HelloWorld } from './components/HelloWorld';// instead, do each item individually.
 
-    export let a = 4;
